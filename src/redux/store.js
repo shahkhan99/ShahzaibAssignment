@@ -1,4 +1,4 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {createStore, combineReducers} from 'redux';
 import {loginReducer, postReducer} from './reducer/reducer';
 
 const rootReducer = combineReducers({

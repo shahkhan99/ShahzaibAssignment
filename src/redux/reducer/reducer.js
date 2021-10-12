@@ -3,7 +3,7 @@ const initialLoginState = {
   login: {email: 'loginmail@gmail.com', pass: 'abcd1234'},
 };
 const initialPostState = {
-  login: {email: 'loginmail@gmail.com', pass: 'abcd1234'},
+  posts: [],
 };
 export const loginReducer = (state = initialLoginState, action) => {
   switch (action.type) {
@@ -21,7 +21,7 @@ export const postReducer = (state = initialPostState, action) => {
   switch (action.type) {
     case POST:
       return {
-        ...state,
+        state,
         posts: action.payload,
       };
     default:

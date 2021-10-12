@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 // import {handleLogin} from '../../backend/logic';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {connect} from 'react-redux';
 
 class Login extends Component {
   state = {
@@ -33,23 +34,32 @@ class Login extends Component {
       [inputName]: inputValue, // <-- Put square brackets
     }));
   };
-  async componentDidMount() {
-    BackHandler.addEventListener(
-      'hardwareBackPress',
-      this.handleBackButton.bind(this),
-    );
-  }
-  loginBtn = () => {};
-  handleBackButton = () => {
-    if (this.props.navigation.isFocused()) {
-      () => {
-        this.props.navigation.navigate('Home');
-      };
+  componentDidMount() {}
+  loginBtn = () => {
+    const {login} = this.props.login;
+    console.log(login);
+    const re =
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    let emailValidate = re.test(this.state.email);
+    if (!this.state.email || !this.state.password) {
+      alert('Email and Password are required');
+    } else {
+      if (!emailValidate) {
+        alert('Email is badly formated');
+      } else {
+        if (
+          login.email == this.state.email &&
+          login.pass == this.state.password
+        ) {
+          this.props.navigation.navigate('Home');
+        } else if (login.email != this.state.email) {
+          alert('Invalid Email');
+        } else if (login.pass != this.state.password) {
+          alert('Invalid Password');
+        }
+      }
     }
   };
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  }
 
   render() {
     return (
@@ -305,4 +315,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+const mapStateToProps = state => ({
+  login: state.login,
+});
+export default connect(mapStateToProps)(Login);

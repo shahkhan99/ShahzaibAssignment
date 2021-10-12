@@ -20,7 +20,7 @@ const Stack = createStackNavigator();
 
 function MyStack() {
   return (
-    <Stack.Navigator initialRouteName={'Login'}>
+    <Stack.Navigator initialRouteName={'Home'}>
       <Stack.Screen
         name="Login"
         component={Login}
